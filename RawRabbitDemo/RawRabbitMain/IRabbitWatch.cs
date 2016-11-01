@@ -18,7 +18,7 @@ namespace RawRabbitMain
     }
 
 
-    public abstract class RabbitWatch:IRabbitWatch
+    public class RabbitWatch:IRabbitWatch,IDisposable
     {
         private Timer _timer;
 
@@ -26,6 +26,7 @@ namespace RawRabbitMain
         {
             _client = BusClientFactory.CreateDefault();
 
+            
             _timer = new Timer();
 
             _timer.Elapsed += (state, args) =>
@@ -39,16 +40,16 @@ namespace RawRabbitMain
                     RecordedTime = DateTime.Now
                 };
 
-                 _client.PublishAsync(diag, Guid.NewGuid(), config =>
+                _client.PublishAsync(diag, Guid.NewGuid(), config =>
                 {
                     config.WithExchange(exchange =>
-                        {
-                            exchange.WithAutoDelete(false)
-                                .WithName("heartbeat")
-                                .WithType(ExchangeType.Fanout);
-                        })
+                    {
+                        exchange.WithAutoDelete(false)
+                            .WithName("heartbeat")
+                            .WithType(ExchangeType.Fanout);
+                    })
                         .WithRoutingKey($"heartbeat.{systemName}.{rabbitName}");
-                }).Wait();
+                });
             };
 
             _timer.Interval = heartbeatInteval;
@@ -75,6 +76,16 @@ namespace RawRabbitMain
                 Interlocked.Increment(ref _processedMessages);
             });
             
+        }
+
+        public void Dispose()
+        {
+            _timer.Stop();
+            _timer.Dispose();
+
+            _client.ShutdownAsync().Wait();
+
+            _client.Dispose();
         }
     }
 }
