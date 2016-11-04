@@ -42,6 +42,18 @@
       <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Configurator.FastActivator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastActivator.1.1\lib\Configurator.FastActivator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ExpressionActivator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExpressionActivator.1.0.0\lib\net40\ExpressionActivator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LambdaActivator, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LambdaActivator.1.0.1\lib\net40\LambdaActivator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Configuration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.1.0.0\lib\netstandard1.1\Microsoft.Extensions.Configuration.dll</HintPath>
       <Private>True</Private>
@@ -121,18 +133,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DetailedContextEnhancer.cs" />
     <Compile Include="CookedRabbit.cs" />
     <Compile Include="CustomErrorHandling.cs" />
     <Compile Include="EventMsg.cs" />
     <Compile Include="EventProxyWorker.cs" />
     <Compile Include="HeartbeatMessage.cs" />
+    <Compile Include="IMessage.cs" />
     <Compile Include="IRabbitWatch.cs" />
     <Compile Include="MongoEnvelope.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProxySystem.cs" />
-    <Compile Include="ProxyWorker - Copy.cs" />
+    <Compile Include="PublishWorker.cs" />
+    <Compile Include="ScheduledPublishWorker.cs" />
+    <Compile Include="WorkerInstanceConfiguration.cs" />
     <Compile Include="ProxyWorker.cs" />
+    <Compile Include="SubscribeWorker.cs" />
+    <Compile Include="WorkerHost.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

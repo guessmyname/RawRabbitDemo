@@ -1,0 +1,28 @@
+﻿{
+  "SystemName": "EventProcessor",
+  "WorkerConfigurations": [
+    {
+      "Type": "",
+      "NumberOfInstances": 2,
+      "InstanceConfiguration": {
+
+        "ExchangeName": "Xyz",
+        "ExchangeType": "Topic",
+        "RoutingKeys": [ "Test" ],
+        "AllowedRetries": 3,
+        "PublishToConfig": [
+          {
+            "Name": "ConfigName",
+            "ExchangeName": "ABC",
+            "RoutingKey": "KeyYZ",
+            "ExchangeType": "Direct"
+          }
+        ],
+        "CustomSettings": {
+
+        }
+      }
+    }
+  ]
+
+}
