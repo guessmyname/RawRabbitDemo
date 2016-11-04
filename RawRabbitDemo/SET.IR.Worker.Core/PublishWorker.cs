@@ -2,13 +2,15 @@
 using System.Linq;
 using System.Threading.Tasks;
 using RawRabbit.Configuration.Publish;
+using RawRabbit.Context;
 using RawRabbit.Exceptions;
+using RawRabbit.vNext.Disposable;
 
 namespace SET.IR.Worker.Core
 {
     public abstract class PublishWorker:Worker, IPublishWorker
     {
-       protected PublishWorker(WorkerInstanceConfiguration configuration) : base(configuration)
+       protected PublishWorker(IBusClient<AdvancedMessageContext> client) : base(client)
        {
        }
 

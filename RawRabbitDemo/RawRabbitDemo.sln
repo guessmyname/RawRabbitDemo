@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RawRabbitMain", "RawRabbitMain\RawRabbitMain.csproj", "{A6E23E23-3162-454A-909D-E625B25BD9A0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoTests", "MongoTests\MongoTests.csproj", "{52652F19-5FE0-4DE7-BFA3-0CB13A4901A8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerTest", "WorkerTest\WorkerTest.csproj", "{271270E7-0DFB-4C4A-9828-7626640E4064}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workers", "Workers\Workers.csproj", "{5F37C3F4-5946-46A5-9E86-145B3969775E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SET.IR.Worker.Core", "SET.IR.Worker.Core\SET.IR.Worker.Core.csproj", "{C41A0D97-79D0-4C46-9539-B703CECF0C68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoTests", "MongoTests\MongoTests.csproj", "{52652F19-5FE0-4DE7-BFA3-0CB13A4901A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A6E23E23-3162-454A-909D-E625B25BD9A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6E23E23-3162-454A-909D-E625B25BD9A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6E23E23-3162-454A-909D-E625B25BD9A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6E23E23-3162-454A-909D-E625B25BD9A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{52652F19-5FE0-4DE7-BFA3-0CB13A4901A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{52652F19-5FE0-4DE7-BFA3-0CB13A4901A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{52652F19-5FE0-4DE7-BFA3-0CB13A4901A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{52652F19-5FE0-4DE7-BFA3-0CB13A4901A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{271270E7-0DFB-4C4A-9828-7626640E4064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{271270E7-0DFB-4C4A-9828-7626640E4064}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{271270E7-0DFB-4C4A-9828-7626640E4064}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +29,10 @@ Global
 		{C41A0D97-79D0-4C46-9539-B703CECF0C68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C41A0D97-79D0-4C46-9539-B703CECF0C68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C41A0D97-79D0-4C46-9539-B703CECF0C68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52652F19-5FE0-4DE7-BFA3-0CB13A4901A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52652F19-5FE0-4DE7-BFA3-0CB13A4901A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52652F19-5FE0-4DE7-BFA3-0CB13A4901A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52652F19-5FE0-4DE7-BFA3-0CB13A4901A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

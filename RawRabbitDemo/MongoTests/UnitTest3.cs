@@ -8,7 +8,6 @@ using RawRabbit.Configuration.Exchange;
 using RawRabbit.Context;
 using RawRabbit.ErrorHandling;
 using RawRabbit.vNext;
-using RawRabbitMain;
 
 namespace MongoTests
 {

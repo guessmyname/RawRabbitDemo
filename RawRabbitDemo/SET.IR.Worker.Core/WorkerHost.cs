@@ -9,21 +9,25 @@ namespace SET.IR.Worker.Core
 
        private List<IWorker> workers = new List<IWorker>();
 
-       public WorkerHost(WorkerHostConfiguration config)
+       public WorkerHost(IServiceProvider provider, WorkerHostConfiguration config)
        {
+            
            foreach (var workerConfiguration in config.WorkerConfigurations)
            {
                for (int i = 0; i < workerConfiguration.NumberOfInstances; i++)
                {
                    var type = Type.GetType(workerConfiguration.Type);
 
-                   if (type != null && type.IsAssignableFrom(typeof(IWorker)))
+                   if (type != null && typeof(IWorker).IsAssignableFrom(type))
                    {
-                       var activator = type.CreateActivator(typeof(WorkerInstanceConfiguration));
+                       var instance = provider.GetService(type) as IWorker;
 
-                       var instance = activator.Invoke(workerConfiguration.InstanceConfiguration) as IWorker;
-
-                        workers.Add(instance);
+                       if (instance != null)
+                       {
+                           instance.Configuration = workerConfiguration.InstanceConfiguration;
+                           instance.Initialize();
+                           workers.Add(instance);
+                       }
                    }
                    else
                    {

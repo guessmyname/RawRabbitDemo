@@ -71,7 +71,7 @@ namespace RawRabbitMain
     }
 
 
-    public abstract class Worker
+    public abstract class Worker:IWorker
     {
         protected readonly WorkerInstanceConfiguration Configuration;
         protected readonly IBusClient<DetailedContext> Client;

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Timers;
+using RawRabbit.Context;
+using RawRabbit.vNext.Disposable;
 
 namespace SET.IR.Worker.Core
 {
@@ -8,9 +10,9 @@ namespace SET.IR.Worker.Core
 
         private readonly Timer _timer;
 
-        protected ScheduledPublishWorker(WorkerInstanceConfiguration configuration) : base(configuration)
+        protected ScheduledPublishWorker(IBusClient<AdvancedMessageContext> client) : base(client)
         {
-            int timerInterval = configuration.CustomSettings.Interval;
+            int timerInterval = Configuration.CustomSettings.Interval;
 
             _timer = new Timer(timerInterval) {Interval = timerInterval};
             _timer.Elapsed += TimerElapsed;

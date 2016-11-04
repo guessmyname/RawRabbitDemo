@@ -123,8 +123,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ResponseWorker.cs" />
-    <Compile Include="TestWorker.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest2.cs" />
@@ -134,9 +132,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RawRabbitMain\RawRabbitMain.csproj">
-      <Project>{A6E23E23-3162-454A-909D-E625B25BD9A0}</Project>
-      <Name>RawRabbitMain</Name>
+    <ProjectReference Include="..\Workers\Workers.csproj">
+      <Project>{5F37C3F4-5946-46A5-9E86-145B3969775E}</Project>
+      <Name>Workers</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

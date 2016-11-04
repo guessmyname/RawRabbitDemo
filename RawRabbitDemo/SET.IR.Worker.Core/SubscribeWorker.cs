@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using RawRabbit.Context;
+using RawRabbit.vNext.Disposable;
 using  exchange=RawRabbit.Configuration.Exchange;
 
 namespace SET.IR.Worker.Core
@@ -8,11 +10,12 @@ namespace SET.IR.Worker.Core
     {
 
        
-        protected SubscribeWorker(WorkerInstanceConfiguration configuration) : base(configuration)
+        protected SubscribeWorker(IBusClient<AdvancedMessageContext> client) : base(client)
         {
-            Initialize();
+           
         }
-        private void Initialize()
+
+        public override void Initialize()
         {
            
             foreach (var routingKey in Configuration.RoutingKeys)
@@ -51,5 +54,11 @@ namespace SET.IR.Worker.Core
 
         protected abstract Task HandleMessage(T message, long retryCount, Action<TimeSpan> retryLater);
         
+    }
+
+    public enum EventType
+    {
+        New,
+        Changed
     }
 }
