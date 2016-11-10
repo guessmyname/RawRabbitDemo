@@ -5,7 +5,7 @@ using RawRabbit.vNext.Disposable;
 
 namespace SET.IR.Worker.Core
 {
-    public abstract class ScheduledPublishWorker:PublishWorker,IDisposable
+    public abstract class ScheduledPublishWorker:RabbitWorker,IDisposable
     {
 
         private Timer _timer;

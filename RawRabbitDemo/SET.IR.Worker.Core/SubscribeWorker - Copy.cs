@@ -7,10 +7,13 @@ using  exchange=RawRabbit.Configuration.Exchange;
 
 namespace SET.IR.Worker.Core
 {
-    public abstract class SubscribeWorkerBase<T>:PublishWorker where T:class,IMessage
+    public abstract class SubscribeWorkerBase<T>:RabbitWorker where T:class,IMessage
     {
         
-        private readonly Dictionary<string, Func<T, long, Action<TimeSpan>,Task>> _messageHandlers = new Dictionary<string, Func<T, long, Action<TimeSpan>,Task>>();
+        private readonly Dictionary<string, Func<T,Task>> _messageHandlers = new Dictionary<string, Func<T,Task>>();
+
+        protected delegate void RegisterMessageHandler(Func<T,Task> messagehandler, string matchRoute = null);
+
 
         protected override void Initialize()
         {
@@ -20,6 +23,9 @@ namespace SET.IR.Worker.Core
             {
                 throw new Exception("SubsciptionConfig is required.");
             }
+
+            AddMessageHandlers(AddMessageHandler);
+
 
             if (cfg.RoutingKeys == null || cfg.RoutingKeys.Count < 1)
             {
@@ -36,11 +42,11 @@ namespace SET.IR.Worker.Core
             }
         }
 
-        private  void SetSubscription(SubsciptionConfig cfg, string routingKey, Func<T, long, Action<TimeSpan>, Task> messageHandler)
+        private  void SetSubscription(SubsciptionConfig cfg, string routingKey, Func<T, Task> messageHandler)
         {
             Client.SubscribeAsync<T>(async (msg, context) =>
             {
-                await messageHandler(msg, context.RetryInfo.NumberOfRetries, context.RetryLater)
+                await messageHandler(msg)
                     .ContinueWith(t =>
                     {
                         if (context.RetryInfo.NumberOfRetries < cfg.AllowedRetries)
@@ -69,7 +75,7 @@ namespace SET.IR.Worker.Core
             });
         }
 
-        protected void AddMessageHandler(Func<T, long, Action<TimeSpan>,Task> messagehandler, string matchRoute = null )
+        private void AddMessageHandler(Func<T, Task> messagehandler, string matchRoute = null)
         {
             if (matchRoute == null)
             {
@@ -77,6 +83,8 @@ namespace SET.IR.Worker.Core
             }
             _messageHandlers.Add(matchRoute, messagehandler);
         }
+        
+        protected abstract void AddMessageHandlers(RegisterMessageHandler registerMessageHandler);
 
     }
 }

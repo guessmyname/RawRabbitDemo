@@ -180,12 +180,11 @@
     <Compile Include="IPublishWorker.cs" />
     <Compile Include="IWorker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PublishWorker.cs" />
     <Compile Include="RequestReplyWorker.cs" />
     <Compile Include="ScheduledPublishWorker.cs" />
     <Compile Include="SubscribeWorker - Copy.cs" />
     <Compile Include="SubscribeWorker.cs" />
-    <Compile Include="Worker.cs" />
+    <Compile Include="RabbitWorker.cs" />
     <Compile Include="WorkerHost.cs" />
     <Compile Include="WorkerHostConfiguration.cs" />
     <Compile Include="WorkerHostLoader.cs" />

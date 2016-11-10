@@ -8,19 +8,19 @@ using RawRabbit.vNext.Disposable;
 
 namespace SET.IR.Worker.Core.Tests
 {
-   public class TestSubscribeWorker:SubscribeWorker<TestMessage>
+   public class TestSubscribeWorker: SubscribeWorkerBase<TestMessage>
     {
-       private readonly Action<TestMessage> _testMethod;
+       private readonly Func<TestMessage, Task> _testMethod;
 
-       public TestSubscribeWorker(Action<TestMessage> testMethod) 
+       public TestSubscribeWorker(Func<TestMessage,Task> testMethod) 
        {
            _testMethod = testMethod;
        }
+        
 
-       protected override async Task HandleMessage(TestMessage message, long retryCount, Action<TimeSpan> retryLater)
-       {
-           _testMethod(message);
-            
-       }
+        protected override void AddMessageHandlers(RegisterMessageHandler registerMessageHandler)
+        {
+            registerMessageHandler( async message => await _testMethod(message));
+        }
     }
 }

@@ -8,13 +8,17 @@ using RawRabbit.vNext.Disposable;
 
 namespace SET.IR.Worker.Core
 {
-   public abstract class RequestReplyWorker<TRequest,TResponse>:Worker
+   public abstract class RequestReplyWorker<TRequest,TResponse>:RabbitWorker
     {
       
 
        protected override void Initialize()
        {
-            Client.RespondAsync<TRequest, TResponse>(async (request, context) => await HandleRequest(request, context));
+            Client.RespondAsync<TRequest, TResponse>(async (request, context) => await HandleRequest(request, context),
+                cfg =>
+                {
+                    cfg.WithExchange(e => e.WithName(Configuration.SubsciptionConfig.ExchangeName));
+                });
         }
 
 

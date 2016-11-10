@@ -7,7 +7,7 @@ using  exchange=RawRabbit.Configuration.Exchange;
 
 namespace SET.IR.Worker.Core
 {
-    public abstract class SubscribeWorker<T>:PublishWorker where T:class,IMessage
+    public abstract class SubscribeWorker<T>:RabbitWorker where T:class,IMessage
     {
 
        

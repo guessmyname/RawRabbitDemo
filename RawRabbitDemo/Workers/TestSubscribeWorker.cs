@@ -16,8 +16,5 @@ namespace WorkerTest
        }
 
 
-        public TestSubscribeWorker(IBusClient<AdvancedMessageContext> client) : base(client)
-        {
-        }
     }
 }

@@ -68,8 +68,6 @@ namespace RabbitDemo
 
 
 
-        public void Client()
-
         private static int fib(int n)
         {
             if (n == 0 || n == 1)

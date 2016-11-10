@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RawRabbit.Configuration.Exchange;
 using RawRabbit.Context;
 using RawRabbit.vNext;
+using SET.IR.Worker.Core.Tests.TestWorkers;
 
 namespace SET.IR.Worker.Core.Tests
 {
@@ -15,7 +16,7 @@ namespace SET.IR.Worker.Core.Tests
 
         
         [TestMethod]
-        public void TestMethod1()
+        public void SubscribeReceiveTest()
         {
             var finished = new ManualResetEventSlim(false);
 
@@ -43,14 +44,18 @@ namespace SET.IR.Worker.Core.Tests
                     pubcfg
                 }
             };
-            
-            var testobj = new TestSubscribeWorker( message =>
-            {
-                results = message.Message;
-                finished.Set();
-            }
-            ) {Configuration = config};
-            testobj.Init();
+
+            var testobj = new TestSubscribeWorker(async message =>
+                {
+                    await Task.Yield();
+
+                    results = message.Message;
+                    finished.Set();
+                }
+
+            );
+           
+            testobj.Init(client,config);
 
             client.PublishAsync(new TestMessage() {Message = testMessage}, Guid.NewGuid(),
                 c =>
@@ -63,6 +68,25 @@ namespace SET.IR.Worker.Core.Tests
             
             Assert.AreEqual(testMessage,results);
 
+        }
+
+        [TestMethod]
+        public void RequestReplyTest()
+        {
+            var config = new WorkerInstanceConfiguration()
+            {
+                SubsciptionConfig = new SubsciptionConfig() {ExchangeName = "Test"}
+            };
+
+         
+            var client = BusClientFactory.CreateDefault<AdvancedMessageContext>();
+            var pub = new RequestPublisher();
+            pub.Init(client,config);
+
+            var response =  client.RequestAsync<string, string>("Test", Guid.NewGuid(),
+                cfg=> cfg.WithExchange(e => e.WithName("Test")));
+
+            Assert.AreEqual("Test", response.Result);
         }
     }
 }

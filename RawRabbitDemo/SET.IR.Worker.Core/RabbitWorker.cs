@@ -1,19 +1,38 @@
-﻿using System;
+#define CONTRACTS_FULL
+using System;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
-using RawRabbit.Configuration.Publish;
+using Microsoft.Extensions.DependencyInjection;
+using RawRabbit.Configuration;
 using RawRabbit.Context;
+using RawRabbit.Context.Enhancer;
 using RawRabbit.Exceptions;
+using RawRabbit.vNext;
 using RawRabbit.vNext.Disposable;
 
 namespace SET.IR.Worker.Core
 {
-    public abstract class PublishWorker:Worker
+    public class RabbitWorker:IWorker
     {
-       protected PublishWorker() 
-       {
-       }
+        protected IBusClient<AdvancedMessageContext> Client { get; set; }
 
+        protected WorkerInstanceConfiguration Configuration { get; set; }
+
+        protected virtual void Initialize()
+        {
+            
+        }
+
+        public void Init(IBusClient<AdvancedMessageContext> client, WorkerInstanceConfiguration configuration)
+        {
+            if (client == null) throw new ArgumentNullException(nameof(client));
+            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+
+            Client = client;
+            Configuration = configuration;
+            Initialize();
+        }
 
         /// <summary>
         /// Method will publish to RabbitMQ. If message is delivered within 
@@ -76,7 +95,6 @@ namespace SET.IR.Worker.Core
             return true;
         }
 
-
         public async Task<TResponse> Request<TRequest, TResponse>(string endpointName, TRequest msg,
             Func<string, string> setRoutingKey = null, Guid messageId = default(Guid))
         {
@@ -105,14 +123,14 @@ namespace SET.IR.Worker.Core
                 routingKey = cfg.RoutingKey;
             }
             
-                //publish message. Use configuration 
-               return await Client.RequestAsync<TRequest,TResponse>(msg, messageId, config =>
-                {
-                    config.WithExchange(e =>
-                    e.WithType(cfg.ExchangeType)
-                    .WithName(cfg.ExchangeName))
+            //publish message. Use configuration 
+            return await Client.RequestAsync<TRequest,TResponse>(msg, messageId, config =>
+            {
+                config.WithExchange(e =>
+                        e.WithType(cfg.ExchangeType)
+                            .WithName(cfg.ExchangeName))
                     .WithRoutingKey(routingKey);
-                });
+            });
 
            
             

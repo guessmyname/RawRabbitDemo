@@ -5,9 +5,6 @@ namespace SET.IR.Worker.Core
 {
     public interface IWorker
     {
-
-          WorkerInstanceConfiguration Configuration { get; set; }
-        IBusClient<AdvancedMessageContext> Client { get; set; }
-        void Init();
+        void Init(IBusClient<AdvancedMessageContext> Client, WorkerInstanceConfiguration Configuration);
     }
 }

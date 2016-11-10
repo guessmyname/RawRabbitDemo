@@ -26,9 +26,8 @@ namespace SET.IR.Worker.Core
                        if (instance != null)
                        {
                            var client = provider.GetService(typeof(IBusClient<AdvancedMessageContext>)) as IBusClient<AdvancedMessageContext>;
-                           instance.Configuration = workerConfiguration.InstanceConfiguration;
-                           instance.Client = client;
-                           instance.Init();
+                          
+                           instance.Init(client,workerConfiguration.InstanceConfiguration);
                            workers.Add(instance);
                        }
                    }
