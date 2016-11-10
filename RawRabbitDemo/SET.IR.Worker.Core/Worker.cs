@@ -1,3 +1,6 @@
+#define CONTRACTS_FULL
+using System;
+using System.Diagnostics.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 using RawRabbit.Configuration;
 using RawRabbit.Context;
@@ -9,15 +12,19 @@ namespace SET.IR.Worker.Core
 {
     public abstract class Worker:IWorker
     {
-        
-        protected readonly IBusClient<AdvancedMessageContext> Client;
-        protected Worker(IBusClient<AdvancedMessageContext>  client)
-        {
-            Client = client;
-
-        }
+        public IBusClient<AdvancedMessageContext> Client { get; set; }
 
         public WorkerInstanceConfiguration Configuration { get; set; }
-        public abstract void Initialize();
+        protected abstract void Initialize();
+
+        public void Init()
+        {
+
+            Contract.Requires(Client != null, "Client must be assigned before calling Init");
+
+            Contract.Requires(Configuration != null, "Configuration must be assigned before calling Init");
+            Initialize();
+        }
+
     }
 }

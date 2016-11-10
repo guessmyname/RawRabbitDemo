@@ -8,17 +8,23 @@ namespace SET.IR.Worker.Core
     public abstract class ScheduledPublishWorker:PublishWorker,IDisposable
     {
 
-        private readonly Timer _timer;
+        private Timer _timer;
 
-        protected ScheduledPublishWorker(IBusClient<AdvancedMessageContext> client) : base(client)
+        protected override void Initialize()
         {
-            int timerInterval = Configuration.CustomSettings.Interval;
+            var cfg = Configuration.ScheduledConfig;
 
-            _timer = new Timer(timerInterval) {Interval = timerInterval};
+            if (cfg == null)
+            {
+                throw new Exception("ScheduledConfig is required.");
+            }
+
+            int timerInterval = cfg.IntervalSeconds;
+
+            _timer = new Timer(timerInterval) { Interval = timerInterval };
             _timer.Elapsed += TimerElapsed;
 
             _timer.Start();
-
         }
 
 

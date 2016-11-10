@@ -5,11 +5,15 @@
       "Type": "",
       "NumberOfInstances": 2,
       "InstanceConfiguration": {
-
-        "ExchangeName": "Xyz",
-        "ExchangeType": "Topic",
-        "RoutingKeys": [ "Test" ],
-        "AllowedRetries": 3,
+        "SubsciptionConfig": {
+          "ExchangeName": "Xyz",
+          "ExchangeType": "Topic",
+          "RoutingKeys": [ "Test" ],
+          "AllowedRetries": 3
+        },
+        "ScheduledConfig": {
+          "IntervalSeconds":  30
+        },
         "PublishToConfig": [
           {
             "Name": "ConfigName",
@@ -18,11 +22,10 @@
             "ExchangeType": "Direct"
           }
         ],
-        "CustomSettings": {
+        "CustomConfig": {
 
         }
       }
     }
   ]
-
 }

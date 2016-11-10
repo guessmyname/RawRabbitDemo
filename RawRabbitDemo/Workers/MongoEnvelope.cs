@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Workers
@@ -30,7 +31,7 @@ namespace Workers
             EnvelopeId = envelopeId;
             ItemId = itemId;
             ItemType = itemType;
-            Data = JObject.Parse(data);
+            Data = JsonConvert.DeserializeObject<dynamic>(data);
             CreatedTime = DateTime.Now;
             DeliverAfter = deliverAfterTime ?? DateTime.Now;
             Hash = MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(data));

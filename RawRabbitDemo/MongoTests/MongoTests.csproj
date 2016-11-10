@@ -129,11 +129,12 @@
     <Compile Include="UnitTest3.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Workers\Workers.csproj">
-      <Project>{5F37C3F4-5946-46A5-9E86-145B3969775E}</Project>
+      <Project>{5f37c3f4-5946-46a5-9e86-145b3969775e}</Project>
       <Name>Workers</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using ExpressionActivator;
+using RawRabbit.Context;
+using RawRabbit.vNext.Disposable;
 
 namespace SET.IR.Worker.Core
 {
@@ -24,8 +25,10 @@ namespace SET.IR.Worker.Core
 
                        if (instance != null)
                        {
+                           var client = provider.GetService(typeof(IBusClient<AdvancedMessageContext>)) as IBusClient<AdvancedMessageContext>;
                            instance.Configuration = workerConfiguration.InstanceConfiguration;
-                           instance.Initialize();
+                           instance.Client = client;
+                           instance.Init();
                            workers.Add(instance);
                        }
                    }

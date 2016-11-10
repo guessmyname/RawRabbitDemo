@@ -11,13 +11,8 @@ namespace SET.IR.Worker.Core
    public abstract class RequestReplyWorker<TRequest,TResponse>:Worker
     {
       
-        protected RequestReplyWorker(IBusClient<AdvancedMessageContext> client) : base(client)
-        {
 
-            
-        }
-
-       public override void Initialize()
+       protected override void Initialize()
        {
             Client.RespondAsync<TRequest, TResponse>(async (request, context) => await HandleRequest(request, context));
         }
